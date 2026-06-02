@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   title: {
-    fontSize: 14,
-    fontWeight: '700',
+    fontSize: 17,
+    fontWeight: '800',
     paddingTop: 4,
     textAlign: 'center',
   },
