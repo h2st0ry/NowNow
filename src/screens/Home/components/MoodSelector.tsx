@@ -35,7 +35,7 @@ function MoodOption({
 
   useEffect(() => {
     Animated.timing(selectedAnim, {
-      duration: 360,
+      duration: 520,
       toValue: selected ? 1 : 0,
       useNativeDriver: false,
     }).start();
@@ -103,10 +103,10 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     width: '100%',
     shadowColor: '#000000',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 1,
+    shadowOffset: {width: 0, height: 5},
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 3,
   },
   optionPressable: {
     flex: 1,

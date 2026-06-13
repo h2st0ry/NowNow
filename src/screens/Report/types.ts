@@ -19,8 +19,9 @@ export interface StressCause {
   percentage: number;
 }
 
-export interface SleepSegment {
+export interface BloodPressureInsight {
   name: string;
-  value: number;
+  valueLabel: string;
+  percentage: number;
   color: string;
 }

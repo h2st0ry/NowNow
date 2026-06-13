@@ -81,6 +81,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     flex: 1,
     padding: 13,
+    shadowColor: '#000000',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.12,
+    shadowRadius: 7,
+    elevation: 3,
   },
   selectedCard: {
   },

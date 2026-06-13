@@ -6,5 +6,4 @@ export type UserPreferences = Partial<Record<PreferenceKey, string>>;
 
 export interface PreferenceOption {
   label: string;
-  description: string;
 }

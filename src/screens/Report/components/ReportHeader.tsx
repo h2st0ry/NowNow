@@ -33,6 +33,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 14,
     padding: 20,
+    shadowColor: '#000000',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.11,
+    shadowRadius: 8,
+    elevation: 3,
   },
   iconWrap: {
     alignItems: 'center',

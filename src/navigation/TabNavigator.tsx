@@ -1,10 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {
-  Activity,
-  MessageCircle,
-  Home,
-  UserRound,
-} from 'lucide-react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Activity, MessageCircle, Home, UserRound } from 'lucide-react-native';
 import {
   Pressable,
   Animated,
@@ -19,7 +14,7 @@ import ChatPage from '../screens/Chat/ChatPage';
 import HomePage from '../screens/Home/HomePage';
 import MyPage from '../screens/Profile/MyPage';
 import ReportPage from '../screens/Report/ReportPage';
-import {useAppTheme} from '../theme/ThemeProvider';
+import { useAppTheme } from '../theme/ThemeProvider';
 
 type TabKey = 'Home' | 'Chat' | 'Report' | 'Settings';
 
@@ -28,20 +23,18 @@ const tabs: {
   label: string;
   Icon: typeof Home;
 }[] = [
-  {key: 'Home', label: '홈', Icon: Home},
-  {key: 'Chat', label: '채팅', Icon: MessageCircle},
-  {key: 'Report', label: '리포트', Icon: Activity},
-  {key: 'Settings', label: '내 설정', Icon: UserRound},
+  { key: 'Home', label: '홈', Icon: Home },
+  { key: 'Chat', label: '채팅', Icon: MessageCircle },
+  { key: 'Report', label: '리포트', Icon: Activity },
+  { key: 'Settings', label: '내 설정', Icon: UserRound },
 ];
 
-const renderScreen = (activeTab: TabKey, setActiveTab: (tab: TabKey) => void) => {
+const renderScreen = (
+  activeTab: TabKey,
+  setActiveTab: (tab: TabKey) => void,
+) => {
   if (activeTab === 'Chat') {
-    return (
-      <ChatPage
-        date={new Date().toISOString()}
-        onBack={() => setActiveTab('Home')}
-      />
-    );
+    return <ChatPage onBack={() => setActiveTab('Home')} />;
   }
 
   if (activeTab === 'Report') {
@@ -59,7 +52,7 @@ export default function TabNavigator() {
   const [activeTab, setActiveTab] = useState<TabKey>('Home');
   const [tabWidth, setTabWidth] = useState(0);
   const indicatorAnim = useRef(new Animated.Value(0)).current;
-  const {theme} = useAppTheme();
+  const { theme } = useAppTheme();
   const activeIndex = tabs.findIndex(tab => tab.key === activeTab);
 
   useEffect(() => {
@@ -82,50 +75,53 @@ export default function TabNavigator() {
       <View style={styles.screen}>{renderScreen(activeTab, setActiveTab)}</View>
 
       {activeTab !== 'Chat' && (
-      <View
-        style={[styles.tabBar, {backgroundColor: theme.nav}]}
-        onLayout={handleTabBarLayout}>
-        {tabWidth > 0 && (
-          <Animated.View
-            pointerEvents="none"
-            style={[
-              styles.activeIndicator,
-              {
-                backgroundColor: theme.navIndicator,
-                left: 8 + tabWidth / 2 - 29,
-                transform: [{translateX: indicatorAnim}],
-              },
-            ]}
-          />
-        )}
-        {tabs.map(({key, label, Icon}) => {
-          const focused = activeTab === key;
-          const iconColor = focused ? theme.text : theme.icon;
+        <View
+          style={[styles.tabBar, { backgroundColor: theme.nav }]}
+          onLayout={handleTabBarLayout}
+        >
+          {tabWidth > 0 && (
+            <Animated.View
+              pointerEvents="none"
+              style={[
+                styles.activeIndicator,
+                {
+                  backgroundColor: theme.navIndicator,
+                  left: 8 + tabWidth / 2 - 29,
+                  transform: [{ translateX: indicatorAnim }],
+                },
+              ]}
+            />
+          )}
+          {tabs.map(({ key, label, Icon }) => {
+            const focused = activeTab === key;
+            const iconColor = focused ? theme.text : theme.icon;
 
-          return (
-            <Pressable
-              key={key}
-              onPress={() => setActiveTab(key)}
-              style={({pressed}) => [
-                styles.tabItem,
-                pressed && styles.pressedTabItem,
-              ]}>
-              <View style={styles.iconWrap}>
-                <Icon color={iconColor} size={22} />
-              </View>
-              <Text
-                style={[
-                  styles.label,
-                  {color: theme.icon},
-                  focused && styles.activeLabel,
-                  focused && {color: theme.text},
-                ]}>
-                {label}
-              </Text>
-            </Pressable>
-          );
-        })}
-      </View>
+            return (
+              <Pressable
+                key={key}
+                onPress={() => setActiveTab(key)}
+                style={({ pressed }) => [
+                  styles.tabItem,
+                  pressed && styles.pressedTabItem,
+                ]}
+              >
+                <View style={styles.iconWrap}>
+                  <Icon color={iconColor} size={22} />
+                </View>
+                <Text
+                  style={[
+                    styles.label,
+                    { color: theme.icon },
+                    focused && styles.activeLabel,
+                    focused && { color: theme.text },
+                  ]}
+                >
+                  {label}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
       )}
     </View>
   );
@@ -133,9 +129,9 @@ export default function TabNavigator() {
 
 const floatingShadow: ViewStyle = {
   shadowColor: '#000000',
-  shadowOffset: {width: 0, height: 6},
-  shadowOpacity: 0.12,
-  shadowRadius: 14,
+  shadowOffset: { width: 0, height: 4 },
+  shadowOpacity: 0.18,
+  shadowRadius: 10,
 };
 
 const styles = StyleSheet.create({
@@ -150,7 +146,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 34,
     bottom: 16,
-    elevation: 8,
+    elevation: 6,
     flexDirection: 'row',
     height: 70,
     justifyContent: 'space-around',

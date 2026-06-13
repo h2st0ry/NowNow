@@ -9,6 +9,7 @@ export interface Message {
   role: MessageRole;
   content: string;
   createdAt: string;
+  createdAtIso: string;
   buttons?: MessageButton[];
 }
 

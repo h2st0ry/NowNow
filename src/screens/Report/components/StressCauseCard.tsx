@@ -1,10 +1,10 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {TrendingUp} from 'lucide-react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { TrendingUp } from 'lucide-react-native';
 
-import {useAppTheme} from '../../../theme/ThemeProvider';
-import {causeColors} from '../constants/reportData';
-import type {StressCause} from '../types';
+import { useAppTheme } from '../../../theme/ThemeProvider';
+import { causeColors } from '../constants/reportData';
+import type { StressCause } from '../types';
 import ReportCard from './ReportCard';
 
 interface StressCauseCardProps {
@@ -18,7 +18,7 @@ export default function StressCauseCard({
   period,
   onPeriodChange,
 }: StressCauseCardProps) {
-  const {theme} = useAppTheme();
+  const { theme } = useAppTheme();
   const totalCount = causes.reduce((sum, item) => sum + item.count, 0);
   const getCauseColor = (index: number) =>
     index === 0 ? theme.accent : causeColors[index % causeColors.length];
@@ -27,14 +27,16 @@ export default function StressCauseCard({
     <ReportCard>
       <View style={styles.header}>
         <View style={styles.titleRow}>
-          <View style={[styles.iconWrap, {backgroundColor: theme.iconSurface}]}>
+          <View
+            style={[styles.iconWrap, { backgroundColor: theme.iconSurface }]}
+          >
             <TrendingUp color={theme.icon} size={20} />
           </View>
-          <Text style={[styles.title, {color: theme.text}]}>
-            스트레스 원인 분석
+          <Text style={[styles.title, { color: theme.text }]}>
+            심박수 변화 포인트
           </Text>
         </View>
-        <View style={[styles.toggle, {backgroundColor: theme.surfaceMuted}]}>
+        <View style={[styles.toggle, { backgroundColor: theme.surfaceMuted }]}>
           {(['week', 'month'] as const).map(item => (
             <Pressable
               key={item}
@@ -42,15 +44,17 @@ export default function StressCauseCard({
               style={[
                 styles.toggleButton,
                 period === item && styles.activeToggleButton,
-                period === item && {backgroundColor: theme.nav},
-              ]}>
+                period === item && { backgroundColor: theme.nav },
+              ]}
+            >
               <Text
                 style={[
                   styles.toggleText,
-                  {color: theme.textMuted},
+                  { color: theme.textMuted },
                   period === item && styles.activeToggleText,
-                  period === item && {color: theme.text},
-                ]}>
+                  period === item && { color: theme.text },
+                ]}
+              >
                 {item === 'week' ? '주간' : '월간'}
               </Text>
             </Pressable>
@@ -58,10 +62,10 @@ export default function StressCauseCard({
         </View>
       </View>
 
-      <Text style={[styles.count, {color: theme.text}]}>
+      <Text style={[styles.count, { color: theme.text }]}>
         {totalCount}
-        <Text style={[styles.countUnit, {color: theme.textMuted}]}>
-          건의 스트레스 기록
+        <Text style={[styles.countUnit, { color: theme.textMuted }]}>
+          개의 심박 반응
         </Text>
       </Text>
 
@@ -73,18 +77,20 @@ export default function StressCauseCard({
                 <View
                   style={[
                     styles.dot,
-                    {backgroundColor: getCauseColor(index)},
+                    { backgroundColor: getCauseColor(index) },
                   ]}
                 />
-                <Text style={[styles.causeLabel, {color: theme.text}]}>
+                <Text style={[styles.causeLabel, { color: theme.text }]}>
                   {item.cause}
                 </Text>
               </View>
-              <Text style={[styles.causeValue, {color: theme.textMuted}]}>
+              <Text style={[styles.causeValue, { color: theme.textMuted }]}>
                 {item.count}회 · {item.percentage}%
               </Text>
             </View>
-            <View style={[styles.track, {backgroundColor: theme.surfaceMuted}]}>
+            <View
+              style={[styles.track, { backgroundColor: theme.surfaceMuted }]}
+            >
               <View
                 style={[
                   styles.progress,
@@ -133,14 +139,12 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 9,
   },
-  activeToggleButton: {
-  },
+  activeToggleButton: {},
   toggleText: {
     fontSize: 13,
     fontWeight: '700',
   },
-  activeToggleText: {
-  },
+  activeToggleText: {},
   count: {
     fontSize: 30,
     fontWeight: '800',

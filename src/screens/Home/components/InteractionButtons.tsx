@@ -1,16 +1,13 @@
-import React, {useEffect, useRef} from 'react';
-import {Animated, Pressable, StyleSheet, Text, View} from 'react-native';
-import {
-  ChevronLeft,
-  Gamepad2,
-  Music,
-  PartyPopper,
-  Utensils,
-} from 'lucide-react-native';
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Gamepad2, Music, PartyPopper, Utensils } from 'lucide-react-native';
 
-import {useAppTheme} from '../../../theme/ThemeProvider';
-import {preferenceLabels} from '../constants/preferenceOptions';
-import type {PreferenceKey, PreferenceOption, UserPreferences} from '../types';
+import { useAppTheme } from '../../../theme/ThemeProvider';
+import type {
+  PreferenceKey,
+  PreferenceOption,
+  UserPreferences,
+} from '../types';
 
 interface InteractionButtonsProps {
   selectedAction: PreferenceKey | null;
@@ -26,18 +23,11 @@ const actions: {
   label: string;
   Icon: typeof Utensils;
 }[] = [
-  {key: 'feed', label: '먹이 주기', Icon: Utensils},
-  {key: 'play', label: '놀아 주기', Icon: Gamepad2},
-  {key: 'music', label: '음악 듣기', Icon: Music},
-  {key: 'hobby', label: '휴식 취하기', Icon: PartyPopper},
+  { key: 'feed', label: '먹이 주기', Icon: Utensils },
+  { key: 'play', label: '놀아 주기', Icon: Gamepad2 },
+  { key: 'music', label: '음악 듣기', Icon: Music },
+  { key: 'hobby', label: '휴식 취하기', Icon: PartyPopper },
 ];
-
-const completedMessages: Record<PreferenceKey, string> = {
-  feed: '배불러요!',
-  play: '즐거워요!',
-  music: '흥얼거려요!',
-  hobby: '편안해요!',
-};
 
 export default function InteractionButtons({
   selectedAction,
@@ -47,115 +37,92 @@ export default function InteractionButtons({
   onOptionSelect,
   onCancelOptions,
 }: InteractionButtonsProps) {
-  const {theme} = useAppTheme();
-  const transitionAnim = useRef(new Animated.Value(1)).current;
-
-  useEffect(() => {
-    transitionAnim.setValue(0);
-    Animated.spring(transitionAnim, {
-      friction: 8,
-      tension: 90,
-      toValue: 1,
-      useNativeDriver: true,
-    }).start();
-  }, [selectedAction, transitionAnim]);
-
-  const animatedStyle = {
-    opacity: transitionAnim,
-    transform: [
-      {
-        translateY: transitionAnim.interpolate({
-          inputRange: [0, 1],
-          outputRange: [14, 0],
-        }),
-      },
-      {
-        scale: transitionAnim.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0.98, 1],
-        }),
-      },
-    ],
-  };
+  const { theme } = useAppTheme();
 
   if (selectedAction) {
     return (
-      <Animated.View
-        style={[
-          styles.optionPanel,
-          {backgroundColor: theme.surface},
-          animatedStyle,
-        ]}>
-        <View style={styles.optionHeader}>
-          <Pressable
-            onPress={onCancelOptions}
-            style={({pressed}) => [
-              styles.backButton,
-              pressed && styles.pressedButton,
-            ]}>
-            <ChevronLeft color={theme.icon} size={18} />
-          </Pressable>
-          <Text style={[styles.optionTitle, {color: theme.text}]}>
-            {preferenceLabels[selectedAction]} 취향 고르기
-          </Text>
-        </View>
-
-        {options.map(option => (
-          <Pressable
-            key={option.label}
-            onPress={() => onOptionSelect(option.label)}
-            style={({pressed}) => [
-              styles.optionButton,
-              {backgroundColor: theme.surfaceMuted, borderColor: theme.border},
-              pressed && styles.pressedButton,
-            ]}>
-            <Text style={[styles.optionLabel, {color: theme.text}]}>
-              {option.label}
-            </Text>
-            <Text style={[styles.optionDescription, {color: theme.textMuted}]}>
-              {option.description}
-            </Text>
-          </Pressable>
-        ))}
-      </Animated.View>
+      <View style={[styles.panel, { backgroundColor: theme.surface }]}>
+        <Pressable
+          onPress={onCancelOptions}
+          style={styles.optionBackdrop}
+          accessibilityRole="button"
+        >
+          {options.map(option => (
+            <Pressable
+              key={option.label}
+              onPress={() => onOptionSelect(option.label)}
+              style={({ pressed }) => [
+                styles.optionButton,
+                {
+                  backgroundColor: theme.surfaceMuted,
+                  borderColor: theme.border,
+                },
+                pressed && styles.pressedButton,
+              ]}
+            >
+              <Text style={[styles.optionLabel, { color: theme.text }]}>
+                {option.label}
+              </Text>
+            </Pressable>
+          ))}
+        </Pressable>
+      </View>
     );
   }
 
   return (
-    <Animated.View style={[styles.grid, animatedStyle]}>
-      {actions.map(({key, label, Icon}) => {
-        const completed = Boolean(completedPreferences[key]);
+    <View
+      style={[styles.panel, styles.grid, { backgroundColor: theme.surface }]}
+    >
+      {actions.map(({ key, label, Icon }) => {
+        const completedValue = completedPreferences[key];
+        const displayLabel = completedValue ?? label;
 
         return (
           <Pressable
             key={key}
-            disabled={completed}
+            disabled={Boolean(completedValue)}
             onPress={() => onActionSelect(key)}
-            style={({pressed}) => [
+            style={({ pressed }) => [
               styles.button,
-              {backgroundColor: theme.surface},
-              completed && styles.completedButton,
-              completed && {backgroundColor: theme.surfaceMuted},
-              pressed && !completed && styles.pressedButton,
-            ]}>
-            <Icon color={completed ? theme.textMuted : theme.icon} size={24} />
+              {
+                backgroundColor: theme.surfaceMuted,
+                borderColor: theme.border,
+              },
+              pressed && !completedValue && styles.pressedButton,
+              completedValue && styles.completedButton,
+            ]}
+          >
+            <Icon
+              color={completedValue ? theme.textMuted : theme.icon}
+              size={24}
+            />
             <Text
-              style={[
-                styles.label,
-                {color: theme.text},
-                completed && styles.completedLabel,
-                completed && {color: theme.textMuted},
-              ]}>
-              {completed ? completedMessages[key] : label}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={[styles.label, { color: theme.text }]}
+            >
+              {displayLabel}
             </Text>
           </Pressable>
         );
       })}
-    </Animated.View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  panel: {
+    borderRadius: 20,
+    height: 144,
+    padding: 12,
+    justifyContent: 'center',
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.07,
+    shadowRadius: 10,
+    elevation: 3,
+  },
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -163,73 +130,44 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
+    borderWidth: 1,
     borderRadius: 18,
-    flexBasis: '47%',
+    flexBasis: '48%',
     flexDirection: 'row',
     gap: 9,
-    minHeight: 58,
+    height: 54,
     justifyContent: 'center',
-    shadowColor: '#000000',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 2,
   },
   completedButton: {
-    shadowOpacity: 0,
-    elevation: 0,
+    opacity: 0.78,
   },
   pressedButton: {
     opacity: 0.72,
   },
   label: {
-    fontSize: 14,
+    flexShrink: 1,
+    fontSize: 13,
     fontWeight: '600',
   },
-  completedLabel: {
-    color: '#7E887E',
-  },
-  optionPanel: {
-    borderRadius: 20,
-    padding: 12,
-    rowGap: 9,
-    shadowColor: '#000000',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 2,
-  },
-  optionHeader: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    minHeight: 32,
-  },
-  backButton: {
-    alignItems: 'center',
-    borderRadius: 18,
-    height: 30,
-    justifyContent: 'center',
-    width: 30,
-  },
-  optionTitle: {
+  optionBackdrop: {
     flex: 1,
-    fontSize: 14,
-    fontWeight: '700',
-    marginRight: 30,
-    textAlign: 'center',
+    justifyContent: 'center',
+    rowGap: 8,
   },
   optionButton: {
     borderRadius: 17,
     borderWidth: 1,
+    height: 34,
     paddingHorizontal: 14,
-    paddingVertical: 11,
+    justifyContent: 'center',
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.07,
+    shadowRadius: 10,
+    elevation: 3,
   },
   optionLabel: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '700',
-  },
-  optionDescription: {
-    fontSize: 12,
-    marginTop: 4,
   },
 });

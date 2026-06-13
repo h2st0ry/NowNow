@@ -6,11 +6,10 @@ import {useAppTheme} from '../../../theme/ThemeProvider';
 import ChatAvatar from './ChatAvatar';
 
 interface ChatHeaderProps {
-  title: string;
   onBack: () => void;
 }
 
-export default function ChatHeader({title, onBack}: ChatHeaderProps) {
+export default function ChatHeader({onBack}: ChatHeaderProps) {
   const {theme} = useAppTheme();
 
   return (
@@ -26,10 +25,6 @@ export default function ChatHeader({title, onBack}: ChatHeaderProps) {
       <View style={styles.headerTitleArea}>
         <ChatAvatar />
         <Text style={[styles.headerTitle, {color: theme.text}]}>뿡뿡이</Text>
-        <View style={[styles.divider, {backgroundColor: theme.border}]} />
-        <Text style={[styles.headerSubtitle, {color: theme.textMuted}]}>
-          {title}
-        </Text>
       </View>
     </View>
   );
@@ -61,15 +56,5 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '700',
     marginTop: 5,
-  },
-  divider: {
-    height: StyleSheet.hairlineWidth,
-    marginTop: 10,
-    width: '100%',
-  },
-  headerSubtitle: {
-    fontSize: 10,
-    marginTop: 8,
-    textAlign: 'center',
   },
 });

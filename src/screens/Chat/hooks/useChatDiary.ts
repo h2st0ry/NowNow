@@ -18,6 +18,7 @@ const createMessage = (
   role,
   content,
   createdAt: getCurrentMessageTime(),
+  createdAtIso: new Date().toISOString(),
   buttons,
 });
 
@@ -25,6 +26,7 @@ const initialMessage: Message = {
   role: 'bot',
   content: '오늘 기분이 좋지 않아 보여... 무슨 일 있어?',
   createdAt: getCurrentMessageTime(),
+  createdAtIso: new Date().toISOString(),
 };
 
 export const useChatDiary = () => {
@@ -52,9 +54,9 @@ export const useChatDiary = () => {
 
       if (stage === 'initial' || stage === 'listening') {
         const responses = [
-          '그랬군요! 더 이야기해 주시겠어요?',
-          '정말 힘드셨겠어요.',
-          '잘 들었어요. 또 어떤 일이 있었나요?',
+          '그랬구나! 더 이야기해 줄래??',
+          '정말 힘들었겠다...',
+          '응응, 그런 일이 있었구나. 또 무슨 일이 있었는지 알려 줘!',
         ];
 
         botResponse = createMessage(
@@ -63,7 +65,7 @@ export const useChatDiary = () => {
         );
         setStage('listening');
       } else {
-        botResponse = createMessage('bot', '알겠습니다.');
+        botResponse = createMessage('bot', '알겠어.');
       }
 
       setMessages(prev => [...prev, botResponse]);
@@ -73,10 +75,10 @@ export const useChatDiary = () => {
       setTimeout(() => {
         const summaryOffer = createMessage(
           'bot',
-          '오늘 하루 정말 힘들었겠어요. 제가 오늘 하루를 정리해드릴까요?',
+          '오늘 하루 정말 힘들었겠다... 내가 오늘 하루를 정리해 줄게',
           [
-            {label: '예', action: 'summarize_yes'},
-            {label: '아니오', action: 'summarize_no'},
+            {label: '좋아', action: 'summarize_yes'},
+            {label: '괜찮아', action: 'summarize_no'},
           ],
         );
 
@@ -100,9 +102,9 @@ export const useChatDiary = () => {
       setStage('summary_shown');
 
       setTimeout(() => {
-        const solutionOffer = createMessage('bot', '해결책도 알려드릴까요?', [
-            {label: '예', action: 'solution_yes'},
-            {label: '아니오', action: 'solution_no'},
+        const solutionOffer = createMessage('bot', '해결책도 알려 줄까?', [
+            {label: '좋아', action: 'solution_yes'},
+            {label: '괜찮아', action: 'solution_no'},
           ]);
 
         setMessages(prev => [...prev, solutionOffer]);
@@ -113,7 +115,7 @@ export const useChatDiary = () => {
         ...prev,
         createMessage(
           'bot',
-          '알겠어요! 더 이야기하고 싶으시면 언제든 말씀해 주세요.',
+          '알겠어! 더 이야기하고 싶으면 언제든지 말해 줘.',
         ),
       ]);
     } else if (action === 'solution_yes') {
@@ -127,7 +129,7 @@ export const useChatDiary = () => {
       setTimeout(() => {
         const actionMessage = createMessage(
           'bot',
-          '스트레스 완화를 위해 이런 활동들은 어떠세요?',
+          '스트레스 완화를 위해 이런 활동들은 어때?',
           [
             {label: '편안한 우리집', action: 'home'},
             {label: '명상', action: 'meditation'},
@@ -141,7 +143,7 @@ export const useChatDiary = () => {
     } else if (action === 'solution_no') {
       setMessages(prev => [
         ...prev,
-        createMessage('bot', '알겠어요! 오늘도 고생하셨어요.'),
+        createMessage('bot', '알겠어! 오늘도 고생했어.'),
       ]);
     } else if (
       action === 'home' ||
@@ -149,9 +151,8 @@ export const useChatDiary = () => {
       action === 'community'
     ) {
       const actionMessages: Record<string, string> = {
-        home: '편안한 조명과 온도로 집안 분위기를 조성해드릴게요.',
-        meditation: '명상 도우미를 실행할게요.',
-        community: '커뮤니티로 이동합니다.',
+        home: '편안한 조명과 온도로 집안 분위기를 조성해 보자.',
+        meditation: '명상 도우미를 실행할게.',
       };
 
       setMessages(prev => [

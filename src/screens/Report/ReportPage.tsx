@@ -1,39 +1,38 @@
 import React from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { ScrollView, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import InsightCard from './components/InsightCard';
 import MetricCards from './components/MetricCards';
 import ReportHeader from './components/ReportHeader';
 import SleepCard from './components/SleepCard';
 import StressCauseCard from './components/StressCauseCard';
 import TrendChart from './components/TrendChart';
-import {useReport} from './hooks/useReport';
-import {useAppTheme} from '../../theme/ThemeProvider';
+import { useReport } from './hooks/useReport';
+import { useAppTheme } from '../../theme/ThemeProvider';
 
 export default function ReportPage() {
-  const {theme} = useAppTheme();
+  const { theme } = useAppTheme();
   const {
     selectedMetric,
     setSelectedMetric,
     stressPeriod,
     setStressPeriod,
-    peakStress,
-    lowestStress,
     stressCauses,
   } = useReport();
 
   return (
     <SafeAreaView
-      style={[styles.safeArea, {backgroundColor: theme.background}]}
-      edges={['top']}>
+      style={[styles.safeArea, { backgroundColor: theme.background }]}
+      edges={['top']}
+    >
       <ScrollView
         alwaysBounceVertical
         keyboardShouldPersistTaps="handled"
         scrollEnabled
-        style={[styles.container, {backgroundColor: theme.background}]}
+        style={[styles.container, { backgroundColor: theme.background }]}
         contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+      >
         <ReportHeader />
         <MetricCards
           selectedMetric={selectedMetric}
@@ -46,11 +45,6 @@ export default function ReportPage() {
           onPeriodChange={setStressPeriod}
         />
         <SleepCard />
-        <InsightCard
-          peakStress={peakStress}
-          lowestStress={lowestStress}
-          topCause={stressCauses[0]}
-        />
       </ScrollView>
     </SafeAreaView>
   );

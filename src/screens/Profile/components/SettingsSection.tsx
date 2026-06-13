@@ -96,9 +96,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     shadowColor: '#000000',
     shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.06,
-    shadowRadius: 10,
-    elevation: 2,
+    shadowOpacity: 0.12,
+    shadowRadius: 7,
+    elevation: 3,
   },
   row: {
     alignItems: 'center',

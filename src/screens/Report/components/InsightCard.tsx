@@ -118,6 +118,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     minHeight: 48,
+    shadowColor: '#000000',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.12,
+    shadowRadius: 7,
+    elevation: 3,
   },
   pressed: {
     opacity: 0.82,

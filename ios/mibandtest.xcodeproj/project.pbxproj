@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0C80B921A6F3F58F76C31292 /* libPods-mibandtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-mibandtest.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		1A9F6D2F2C8B4F6B8E1E3F01 /* HealthKitBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F6D2E2C8B4F6B8E1E3F01 /* HealthKitBridge.mm */; };
+		1A9F6D302C8B4F6B8E1E3F01 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F6D312C8B4F6B8E1E3F01 /* HealthKit.framework */; };
 		74F2E1877A5C765350F27B64 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -19,6 +21,9 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = mibandtest/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = mibandtest/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = mibandtest/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		1A9F6D2E2C8B4F6B8E1E3F01 /* HealthKitBridge.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = HealthKitBridge.mm; path = mibandtest/HealthKitBridge.mm; sourceTree = "<group>"; };
+		1A9F6D312C8B4F6B8E1E3F01 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		1A9F6D322C8B4F6B8E1E3F01 /* mibandtest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = mibandtest.entitlements; path = mibandtest/mibandtest.entitlements; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-mibandtest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mibandtest.debug.xcconfig"; path = "Target Support Files/Pods-mibandtest/Pods-mibandtest.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-mibandtest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mibandtest.release.xcconfig"; path = "Target Support Files/Pods-mibandtest/Pods-mibandtest.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-mibandtest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mibandtest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A9F6D302C8B4F6B8E1E3F01 /* HealthKit.framework in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-mibandtest.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -44,6 +50,8 @@
 			children = (
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				761780EC2CA45674006654EE /* AppDelegate.swift */,
+				1A9F6D2E2C8B4F6B8E1E3F01 /* HealthKitBridge.mm */,
+				1A9F6D322C8B4F6B8E1E3F01 /* mibandtest.entitlements */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
@@ -247,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
+				1A9F6D2F2C8B4F6B8E1E3F01 /* HealthKitBridge.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +268,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = mibandtest/mibandtest.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5TZ7H3AXL5;
 				ENABLE_BITCODE = NO;
@@ -290,6 +300,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = mibandtest/mibandtest.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5TZ7H3AXL5;
 				INFOPLIST_FILE = mibandtest/Info.plist;

@@ -1,44 +1,50 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {Moon} from 'lucide-react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { Activity } from 'lucide-react-native';
 
-import {useAppTheme} from '../../../theme/ThemeProvider';
-import {sleepData} from '../constants/reportData';
+import { useAppTheme } from '../../../theme/ThemeProvider';
+import { bloodPressureInsightData } from '../constants/reportData';
 import ReportCard from './ReportCard';
 
 export default function SleepCard() {
-  const {theme} = useAppTheme();
+  const { theme } = useAppTheme();
 
   return (
     <ReportCard>
       <View style={styles.header}>
-        <Moon color={theme.accent} size={21} />
+        <Activity color={theme.accent} size={21} />
         <View>
-          <Text style={[styles.title, {color: theme.text}]}>수면 패턴</Text>
-          <Text style={[styles.subtitle, {color: theme.textMuted}]}>
-            총 7시간 10분
+          <Text style={[styles.title, { color: theme.text }]}>
+            혈압 변화 포인트
+          </Text>
+          <Text style={[styles.subtitle, { color: theme.textMuted }]}>
+            수축기 기준 108-132mmHg
           </Text>
         </View>
       </View>
 
       <View style={styles.rows}>
-        {sleepData.map((item, index) => (
+        {bloodPressureInsightData.map((item, index) => (
           <View key={item.name} style={styles.row}>
-            <Text style={[styles.name, {color: theme.text}]}>{item.name}</Text>
+            <Text style={[styles.name, { color: theme.text }]}>
+              {item.name}
+            </Text>
             <View style={styles.progressArea}>
-              <View style={[styles.track, {backgroundColor: theme.surfaceMuted}]}>
+              <View
+                style={[styles.track, { backgroundColor: theme.surfaceMuted }]}
+              >
                 <View
                   style={[
                     styles.progress,
                     {
-                      width: `${item.value / 2}%`,
+                      width: `${item.percentage}%`,
                       backgroundColor: index === 0 ? theme.accent : item.color,
                     },
                   ]}
                 />
               </View>
-              <Text style={[styles.value, {color: theme.text}]}>
-                {item.value}분
+              <Text style={[styles.value, { color: theme.text }]}>
+                {item.valueLabel}
               </Text>
             </View>
           </View>
@@ -91,6 +97,6 @@ const styles = StyleSheet.create({
   value: {
     fontSize: 12,
     fontWeight: '700',
-    width: 58,
+    width: 88,
   },
 });

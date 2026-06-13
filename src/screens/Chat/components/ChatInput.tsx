@@ -76,6 +76,11 @@ const styles = StyleSheet.create({
     fontSize: 13,
     minHeight: 44,
     paddingHorizontal: 16,
+    shadowColor: '#000000',
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.11,
+    shadowRadius: 6,
+    elevation: 2,
   },
   sendButton: {
     alignItems: 'center',
@@ -83,6 +88,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     minHeight: 44,
     width: 48,
+    shadowColor: '#000000',
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+    elevation: 3,
   },
   pressedSendButton: {
     opacity: 0.82,

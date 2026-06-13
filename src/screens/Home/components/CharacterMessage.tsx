@@ -1,8 +1,8 @@
-import React, {useEffect, useRef} from 'react';
-import {Animated, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-import {useAppTheme} from '../../../theme/ThemeProvider';
-import type {MoodType} from '../types';
+import { useAppTheme } from '../../../theme/ThemeProvider';
+import type { MoodType } from '../types';
 
 interface CharacterMessageProps {
   userMood: MoodType;
@@ -14,40 +14,14 @@ const messages: Record<MoodType, string> = {
   happy: '기분이 좋아 보여서 나도 좋아!\n오늘 좋은 일이 있었어?',
 };
 
-export default function CharacterMessage({userMood}: CharacterMessageProps) {
-  const {theme} = useAppTheme();
-  const fadeAnim = useRef(new Animated.Value(1)).current;
-  const translateAnim = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    fadeAnim.setValue(0);
-    translateAnim.setValue(8);
-
-    Animated.parallel([
-      Animated.timing(fadeAnim, {
-        duration: 260,
-        toValue: 1,
-        useNativeDriver: true,
-      }),
-      Animated.timing(translateAnim, {
-        duration: 260,
-        toValue: 0,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  }, [fadeAnim, translateAnim, userMood]);
+export default function CharacterMessage({ userMood }: CharacterMessageProps) {
+  const { theme } = useAppTheme();
 
   return (
-    <View style={[styles.card, {backgroundColor: theme.surface}]}>
-      <Animated.View
-        style={{
-          opacity: fadeAnim,
-          transform: [{translateY: translateAnim}],
-        }}>
-        <Text style={[styles.message, {color: theme.text}]}>
-          {messages[userMood]}
-        </Text>
-      </Animated.View>
+    <View style={[styles.card, { backgroundColor: theme.surface }]}>
+      <Text style={[styles.message, { color: theme.text }]}>
+        {messages[userMood]}
+      </Text>
     </View>
   );
 }
@@ -56,18 +30,18 @@ const styles = StyleSheet.create({
   card: {
     alignItems: 'center',
     borderRadius: 20,
-    minHeight: 82,
+    minHeight: 86,
     justifyContent: 'center',
     paddingHorizontal: 22,
     shadowColor: '#000000',
-    shadowOffset: {width: 0, height: 6},
+    shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.08,
     shadowRadius: 14,
     elevation: 3,
   },
   message: {
-    fontSize: 14,
-    lineHeight: 22,
+    fontSize: 15,
+    lineHeight: 24,
     textAlign: 'center',
   },
 });

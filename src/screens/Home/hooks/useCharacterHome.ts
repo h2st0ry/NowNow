@@ -18,6 +18,10 @@ export const useCharacterHome = () => {
   const [currentOptions, setCurrentOptions] = useState<PreferenceOption[]>([]);
 
   const handleActionSelect = (action: PreferenceKey) => {
+    if (userPreferences[action]) {
+      return;
+    }
+
     setSelectedAction(action);
     setCurrentOptions(pickRandomOptions(action));
   };

@@ -9,6 +9,16 @@
     "start": "react-native start",
     "test": "jest"
   },
+  "codegenConfig": {
+    "name": "NativeHealthKitBridgeSpec",
+    "type": "modules",
+    "jsSrcsDir": "specs",
+    "ios": {
+      "modulesProvider": {
+        "NativeHealthKitBridge": "RCTNativeHealthKitBridge"
+      }
+    }
+  },
   "dependencies": {
     "@react-native/new-app-screen": "0.85.3",
     "@react-navigation/bottom-tabs": "^7.16.2",

@@ -60,7 +60,7 @@ export default function MessageBubble({
       <View
         style={[
           styles.messageBubble,
-          {backgroundColor: theme.bubble},
+          {backgroundColor: theme.surface},
         ]}>
         <Text
           style={[
@@ -116,6 +116,11 @@ const styles = StyleSheet.create({
     maxWidth: '78%',
     paddingHorizontal: 18,
     paddingVertical: 12,
+    shadowColor: '#000000',
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 2,
   },
   timeText: {
     fontSize: 10,
